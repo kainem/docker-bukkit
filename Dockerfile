@@ -16,15 +16,11 @@
 #     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 FROM ubuntu:trusty
-MAINTAINER Bren Briggs <briggs.brenton@gmail.com>
+MAINTAINER Kaine McAliece <kaine@kainem.com>
 RUN apt-get update && apt-get install -y openjdk-7-jdk wget git
 RUN mkdir /minecraft-workspace /minecraft /data
-RUN wget -O /minecraft-workspace/BuildTools.jar https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
+RUN wget -O /minecrafte/craftbukkit.jar https://cdn.getbukkit.org/craftbukkit/craftbukkit-1.12.2.jar
 
-# Capture only stderr to reduce log verbosity. 
-RUN cd /minecraft-workspace/ && java -jar BuildTools.jar --rev latest 2>&1 >/dev/null
-RUN mv /minecraft-workspace/craftbukkit-*.jar /minecraft
-RUN rm -rf /minecraft-workspace
 EXPOSE 25565
 WORKDIR /data
 ADD start-minecraft.sh /root/start-minecraft.sh
